@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KekebonKekepabon - Nutrition</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <script src="api.js" defer></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="main-container">
+    
+    <div class="title">
+      <h1> Entreprise de Nutrition</h1>
+      <img src="img/logo1.png" id="logo" alt="logo">
+    </div>
+
+
+    <div class="country">
+      <label for="country">Choisissez un pays :</label>
+      <select id="country" name="country">
+        <option value="">--Sélectionner--</option>
+      </select>
+      
+      <div id="countryResults"></div> 
+      <button id="resetCountry">Réinitialiser</button>
+    </div>
+
+
+    <div class="recipe">
+      <label for="recipe">Choisissez une recette :</label>
+      <select id="recipe" name="recipe">
+        <option value="">--Sélectionner--</option>
+      </select>
+      
+      <div id="recipeResults"></div> 
+      <button id="resetRecipe">Réinitialiser</button>
+    </div>
+
+
+    <div class="ingredient">
+      <form action="#" method="get">
+        <h2>Rechercher par ingredients</h2>
+    
+        <label for="ingredient">Entrez le nom de l'ingredients :</label>
+        <input type="text" id="ingredient" name="ingredient" placeholder="Ex : Chicken, Garlic...">
+        <div id="ingredientResults"></div> 
+        <button type="submit" id="btn">Rechercher</button>
+        <button id="resetIngredient">Réinitialiser</button>
+      </form>
+
+    </div>
+    </div>
+  </div> 
+
+</body>
+</html>
