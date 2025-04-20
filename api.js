@@ -3,20 +3,14 @@ const countrySelect = document.getElementById("country");
 const inputIngredient = document.getElementById("ingredient")
 const recipeDetails = document.getElementById("recipeDetails");
 const recipeList = document.getElementById("recipe-list")
-
-
-// fetch des options sélecteurs
 recipeDetails.style.display= "none"
 recipeList.style.display= "none"
-
-
 
 function countrySelector() {
   fetch("https://www.themealdb.com/api/json/v1/1/list.php?a=list")
     .then((response) => response.json())
     .then((data) => {
       console.log(data);
-
 
       for (const el of data.meals) {
         const inputContry = document.createElement("option");
@@ -51,8 +45,6 @@ function recipeSelector() {
 recipeSelector()
 ingredient();
 
-//  fetch des recettes
-
 function loadByCountry() {
   const countrySelect = document.getElementById("country");
   console.log(countrySelect);
@@ -72,8 +64,6 @@ function loadByCountry() {
         console.log(data4);
 
         recipeList.innerHTML = '';
-
-
         let recipes = data4.meals
 
         if (recipes.length === 0) {
@@ -98,8 +88,7 @@ function loadByCountry() {
       .catch((error) => {
         console.error("Erreur lors de la récupération des données :", error);
       });
-  }
-  )
+  })
 }
 loadByCountry()
 
@@ -111,7 +100,6 @@ function recipeByCategory() {
     e.preventDefault();
     recipeList.style.display = "block";
     recipeDetails.style.display = "none";
-
 
     recipeDetails.innerHTML = '';
 
@@ -141,16 +129,13 @@ function recipeByCategory() {
             renderMealDetails(el.idMeal);
             recipeList.style.display = "none";
             recipeDetails.style.display = "block";
-
           });
         });
-
       })
       .catch((error) => {
         console.error("Erreur lors de la récupération des données :", error);
       });
-  }
-  )
+  })
 }
 recipeByCategory()
 
@@ -160,26 +145,24 @@ function renderMealDetails(id) {
   fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`)
     .then((response) => response.json())
     .then((meal) => {
-      const mealData = meal.meals[0]; // On récupère le plat
+      const mealData = meal.meals[0]; 
       console.log(mealData);
 
-      // Nettoyage de l'affichage
       recipeDetails.innerHTML = '';
 
-      // Récupère les ingrédients
+      backBtn.style.display = "block";
+      recipeDetails.appendChild(backBtn);
+
       const ingredientsArray = arrayIngredient(mealData);
 
-      // Création de l'élément d'affichage
       const recipeEl = document.createElement("div");
 
-      // Création de la liste des ingrédients
       let ingredientsHTML = "<ul>";
       ingredientsArray.forEach(item => {
         ingredientsHTML += `<li>${item.quantity} ${item.ingredient}</li>`;
       });
       ingredientsHTML += "</ul>";
 
-      // Remplissage du contenu HTML
       recipeEl.innerHTML = `
         <h2>${mealData.strMeal}</h2>
         <img src="${mealData.strMealThumb}" alt="${mealData.strMeal}" />
@@ -189,14 +172,19 @@ function renderMealDetails(id) {
         ${ingredientsHTML}
         <h3>Instructions :</h3>
         <p>${mealData.strInstructions}</p>
-        <a href="${mealData.strYoutube}" target="_blank">Voir la vidéo</a>
-      `;
+        <a href="${mealData.strYoutube}" target="_blank">Voir la vidéo</a>`;
 
       recipeDetails.appendChild(recipeEl);
       recipeDetails.style.display = "block";
     });
 }
 
+const backBtn = document.getElementById("backBtn");
+backBtn.addEventListener("click", () => {
+  recipeDetails.style.display = "none";
+  recipeList.style.display = "block";
+  backBtn.style.display = "none";
+});
 
 function arrayIngredient(mealData) {
   const ingredientsList = [];
@@ -212,12 +200,8 @@ function arrayIngredient(mealData) {
       });
     }
   }
-
   return ingredientsList;
 }
-
-
-
 
 function ingredient() {
   const btn = document.getElementById('btn');
@@ -231,7 +215,6 @@ function ingredient() {
 
     const inputIng = document.getElementById('ingredient');
     let ingredient = inputIng.value.trim();
-
 
     if (ingredient === '') {
       ingredientResults.innerHTML = 'Veuillez entrer un ingrédient.';
@@ -261,11 +244,8 @@ function ingredient() {
             renderMealDetails(el.idMeal);
             recipeList.style.display = "none";
             recipeDetails.style.display = "block";
-
           });
-
         });
-
       })
       .catch((error) => {
         console.error("Erreur lors de la récupération des données :", error);
@@ -273,18 +253,3 @@ function ingredient() {
       });
   });
 }
-
-
-// document.getElementById("resetRecipe").addEventListener("click", (e) => {
-//   e.preventDefault();
-//   document.getElementById("recipe").selectedIndex = 0;
-//   document.getElementById("recipeResults").innerHTML = "";
-// });
-
-
-// document.getElementById("resetIngredient").addEventListener("click", (e) => {
-//   e.preventDefault();
-//   document.getElementById("ingredient").value = "";
-//   document.getElementById("ingredientResults").innerHTML = "";
-//   btn.style.display = "block"
-// });
