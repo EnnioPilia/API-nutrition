@@ -80,6 +80,7 @@ function loadByCountry() {
           divContry.addEventListener("click", () => {
             renderMealDetails(el.idMeal);
             document.getElementById("recipe-list").style.display = "none";
+        
           });
 
         });
